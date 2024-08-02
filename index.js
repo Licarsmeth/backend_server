@@ -2,6 +2,9 @@ const express = require("express");
 const path = require("path");
 const app = express();
 
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
 app.get("/about", (req, res) => {
   const filePath = path.join(__dirname, "about.html");
   res.sendFile(filePath, (err) => {
@@ -22,11 +25,12 @@ app.get("/contact", (req, res) => {
 
 app.get("/", (req, res) => {
   const filePath = path.join(__dirname, "index.html");
-  res.sendFile(filePath, (err) => {
+  res.render("index", {message: "Ejs rocks!"});
+/*  res.sendFile(filePath, (err) => {
     if (err) {
       res.status(404).sendFile("File not found");
     }
-  });
+  });*/
 });
 
 // Catch-all route for undefined paths
